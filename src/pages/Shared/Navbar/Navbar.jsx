@@ -44,7 +44,7 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <Link to="/" className="btn  text-xl">
+          <Link to="/">
             <img src={logo} alt="" />
           </Link>
         </div>
