@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 const Login = () => {
   const handleLogin = (e) => {
@@ -44,6 +45,14 @@ const Login = () => {
             <div className="form-control mt-6">
               <input type="submit" className="btn btn-warning" value="Login" />
             </div>
+            <p className="text-center mt-3">
+              <small>
+                Do not have any account? Please{" "}
+                <Link to={"/signup"} className="hover:link link-primary ">
+                  Sign up
+                </Link>
+              </small>
+            </p>
           </form>
         </div>
       </div>
