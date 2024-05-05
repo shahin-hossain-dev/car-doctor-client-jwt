@@ -7,7 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
-
+import axios from "axios";
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
@@ -42,6 +42,17 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        const loggedUser = { email: currentUser.email };
+        axios
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true, //cookies এ set করার জন্য লিখতে হবে। কারণ আমাদের cross-site. cross-site হলো server/client ২টা ভিন্ন port এ চলতেছে।
+          })
+          .then((res) => {
+            console.log("token response", res.data);
+          });
+      }
+
       setLoading(false);
     });
     return () => {
