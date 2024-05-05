@@ -41,9 +41,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const loggedUser = { email: userEmail };
       setUser(currentUser);
+      setLoading(false);
       if (currentUser) {
-        const loggedUser = { email: currentUser.email };
         axios
           .post("http://localhost:5000/jwt", loggedUser, {
             withCredentials: true, //cookies এ set করার জন্য লিখতে হবে। কারণ আমাদের cross-site. cross-site হলো server/client ২টা ভিন্ন port এ চলতেছে।
@@ -51,9 +53,16 @@ const AuthProvider = ({ children }) => {
           .then((res) => {
             console.log("token response", res.data);
           });
+      } else {
+        // user logout করার পরে cookie কে browser থেকে clean করার জন্য post request করা হচ্ছে
+        axios
+          .post("http://localhost:5000/logout", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
       }
-
-      setLoading(false);
     });
     return () => {
       unsubscribed();
