@@ -1,14 +1,17 @@
-import { useEffect } from "react";
-import { useState } from "react";
+// import { useEffect } from "react";
+// import { useState } from "react";
+import useServices from "../../../hooks/useServices";
 import ServiceCard from "./ServiceCard";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/services")
-      .then((res) => res.json())
-      .then((data) => setServices(data));
-  }, []);
+  const services = useServices(); //custom hook use করা হয়েছে।
+  // const [services, setServices] = useState([]);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/services")
+  //     .then((res) => res.json())
+  //     .then((data) => setServices(data));
+  // }, []);
+
   return (
     <div>
       <div className="text-center md:w-1/2 mx-auto mt-12 md:mt-24 mb-12 space-y-4">
