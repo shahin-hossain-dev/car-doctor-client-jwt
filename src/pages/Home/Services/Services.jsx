@@ -7,7 +7,7 @@ const Services = () => {
   const services = useServices(); //custom hook use করা হয়েছে।
   // const [services, setServices] = useState([]);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/services")
+  //   fetch("https://car-doctor-server-jwt-eight.vercel.app/services")
   //     .then((res) => res.json())
   //     .then((data) => setServices(data));
   // }, []);

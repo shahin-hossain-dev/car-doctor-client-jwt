@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import useAuth from "../../hooks/useAuth";
 // import { useContext } from "react";
@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 const Login = () => {
   // const { loginUser } = useContext(AuthContext);
   const { loginUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -15,12 +16,15 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(name, email, password);
+    // console.log(name, email, password);
     loginUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
+        navigate("/");
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        // console.log(error.message);
+      });
   };
   return (
     <div className="hero min-h-screen ">

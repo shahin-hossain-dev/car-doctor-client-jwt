@@ -47,27 +47,36 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (currentUser) {
         axios
-          .post("http://localhost:5000/jwt", loggedUser, {
-            withCredentials: true, //cookies এ set করার জন্য লিখতে হবে। কারণ আমাদের cross-site. cross-site হলো server/client ২টা ভিন্ন port এ চলতেছে।
-          })
+          .post(
+            "https://car-doctor-server-jwt-eight.vercel.app/jwt",
+            loggedUser,
+            {
+              withCredentials: true, //cookies এ set করার জন্য লিখতে হবে। কারণ আমাদের cross-site. cross-site হলো server/client ২টা ভিন্ন port এ চলতেছে।
+            }
+          )
           .then((res) => {
-            console.log("token response", res.data);
+            // console.log("token response", res.data);
           });
       } else {
         // user logout করার পরে cookie কে browser থেকে clean করার জন্য post request করা হচ্ছে
         axios
-          .post("http://localhost:5000/logout", loggedUser, {
-            withCredentials: true,
-          })
+          .post(
+            "https://car-doctor-server-jwt-eight.vercel.app/logout",
+
+            loggedUser,
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           });
       }
     });
     return () => {
       unsubscribed();
     };
-  }, []);
+  }, [user?.email]);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

@@ -11,7 +11,9 @@ const Navbar = () => {
       .then(() => {
         alert("Logout Successfull");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        // console.log(error);
+      });
   };
 
   const navItems = (

@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://car-doctor-server-jwt-eight.vercel.app",
   withCredentials: true,
 });
 
@@ -19,18 +19,22 @@ const useAxiosSecure = () => {
         return res;
       },
       (error) => {
-        console.log("error tracked in interceptor", error.response.status);
+        // console.log("error tracked in interceptor", error.response.status);
         if (error.response.status === 401 || error.response.status === 403) {
-          console.log("logout the user");
+          // console.log("logout the user");
           logOut()
             .then(() => {
               navigate("/login");
             })
-            .catch((error) => console.log(error.message));
+            .catch((error) => {
+              {
+                // console.log(error.message);
+              }
+            });
         }
       }
     );
-  }, []);
+  }, [logOut, navigate]);
   return axiosSecure;
 };
 

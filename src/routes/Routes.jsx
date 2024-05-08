@@ -28,7 +28,9 @@ const router = createBrowserRouter([
         path: "/checkout/:id",
         element: <Checkout />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/service/${params.id}`),
+          fetch(
+            `https://car-doctor-server-jwt-eight.vercel.app/service/${params.id}`
+          ),
       },
       {
         path: "/bookings",

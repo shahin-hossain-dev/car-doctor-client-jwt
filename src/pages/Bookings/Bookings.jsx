@@ -10,7 +10,7 @@ const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const axiosSecure = useAxiosSecure();
 
-  // const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  // const url = `https://car-doctor-server-jwt-eight.vercel.app/bookings?email=${user?.email}`;
   const url = `/bookings?email=${user?.email}`;
 
   useEffect(() => {
@@ -20,20 +20,23 @@ const Bookings = () => {
     // axios.get(url, { withCredentials: true }).then((res) => {
     //   setBookings(res.data);
     // });
-    axiosSecure.get(url).then((res) => {
-      setBookings(res.data);
-    });
+    const fetchData = async () => {
+      await axiosSecure.get(url).then((res) => {
+        setBookings(res.data);
+      });
+    };
+    fetchData();
   }, [url, axiosSecure]);
 
   const handleDelete = (id) => {
     const process = confirm("Are you Sure to Delete Service");
     if (process) {
-      fetch(`http://localhost:5000/bookings/${id}`, {
+      fetch(`https://car-doctor-server-jwt-eight.vercel.app/bookings/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           if (data.deletedCount > 0) {
             alert("Service Deleted Successful");
             const remaining = bookings.filter((booking) => booking._id !== id);
@@ -44,7 +47,7 @@ const Bookings = () => {
   };
 
   const handleBookingConfirm = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://car-doctor-server-jwt-eight.vercel.app/bookings/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
