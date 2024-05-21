@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 
-const useServices = (ace) => {
+const useServices = (asc, search) => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services?sort=${ace ? "acc" : "desc"}`) //sort query
+    fetch(
+      `http://localhost:5000/services?sort=${
+        asc ? "asc" : "desc"
+      }&search=${search}`
+    ) //sort query
       .then((res) => res.json())
       .then((data) => setServices(data));
-  }, [ace]);
+  }, [asc, search]);
   return services;
 };
 
