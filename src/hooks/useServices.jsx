@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-const useServices = () => {
+const useServices = (ace) => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch("https://car-doctor-server-jwt-eight.vercel.app/services")
+    fetch(`http://localhost:5000/services?sort=${ace ? "acc" : "desc"}`) //sort query
       .then((res) => res.json())
       .then((data) => setServices(data));
-  }, []);
+  }, [ace]);
   return services;
 };
 

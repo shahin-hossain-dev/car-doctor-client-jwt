@@ -47,13 +47,9 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (currentUser) {
         axios
-          .post(
-            "https://car-doctor-server-jwt-eight.vercel.app/jwt",
-            loggedUser,
-            {
-              withCredentials: true, //cookies এ set করার জন্য লিখতে হবে। কারণ আমাদের cross-site. cross-site হলো server/client ২টা ভিন্ন port এ চলতেছে।
-            }
-          )
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true, //cookies এ set করার জন্য লিখতে হবে। কারণ আমাদের cross-site. cross-site হলো server/client ২টা ভিন্ন port এ চলতেছে।
+          })
           .then((res) => {
             // console.log("token response", res.data);
           });
@@ -61,7 +57,7 @@ const AuthProvider = ({ children }) => {
         // user logout করার পরে cookie কে browser থেকে clean করার জন্য post request করা হচ্ছে
         axios
           .post(
-            "https://car-doctor-server-jwt-eight.vercel.app/logout",
+            "http://localhost:5000/logout",
 
             loggedUser,
             {
